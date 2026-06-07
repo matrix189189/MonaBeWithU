@@ -36,6 +36,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Type-check
+        run: pnpm --dir apps/desktop tsc --noEmit
+
       - name: Setup Rust
         uses: dtolnay/rust-toolchain@stable
         with:
@@ -48,6 +51,27 @@ jobs:
       - name: Build Tauri (Windows)
         if: runner.os == 'Windows'
         run: pnpm --dir apps/desktop tauri build --target ${{ matrix.target }}
+
+      - name: Smoke test (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          $exe = Get-ChildItem -Path "apps/desktop/src-tauri/target/${{ matrix.target }}/release/bundle/nsis/" -Filter "*.exe" | Select-Object -First 1
+          if (-not $exe) { Write-Error "No .exe found"; exit 1 }
+          Write-Host "Found: $($exe.Name) ($('{0:N0}' -f $exe.Length) bytes)"
+          # Verify it's a valid PE executable
+          $bytes = [System.IO.File]::ReadAllBytes($exe.FullName)
+          if ($bytes[0] -ne 0x4D -or $bytes[1] -ne 0x5A) { Write-Error "Not a valid PE executable (missing MZ header)"; exit 1 }
+          Write-Host "PE header valid (MZ signature OK)"
+
+      - name: Smoke test (macOS)
+        if: runner.os == 'macOS'
+        run: |
+          app=$(find "apps/desktop/src-tauri/target/${{ matrix.target }}/release/bundle/macos" -name "*.app" -maxdepth 1 | head -1)
+          if [ -z "$app" ]; then echo "No .app found"; exit 1; fi
+          echo "Found: $(basename "$app")"
+          # Ad-hoc sign so it can be opened on test machine
+          codesign --deep --force --sign - "$app"
+          echo "Ad-hoc signed OK"
 
       - name: Upload macOS artifacts
         if: runner.os == 'macOS'

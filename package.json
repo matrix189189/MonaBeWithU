@@ -11,13 +11,13 @@
   "scripts": {
     "dev": "pnpm --filter @ragdoll-desktop/desktop run dev",
     "build": "pnpm --filter @ragdoll-desktop/desktop run build",
-    "dist:mac": "pnpm --filter @ragdoll-desktop/desktop run dist:mac",
-    "dist:mac:unsigned": "pnpm --filter @ragdoll-desktop/desktop run dist:mac:unsigned",
+    "dist:mac": "pnpm --dir apps/desktop tauri build --target aarch64-apple-darwin",
+    "dist:win": "pnpm --dir apps/desktop tauri build --target x86_64-pc-windows-msvc",
     "typecheck": "pnpm --filter @ragdoll-desktop/desktop run typecheck",
     "lint:boundaries": "node scripts/check-boundaries.mjs"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=22"
   },
   "devDependencies": {
     "typescript": "^5.8.3"
