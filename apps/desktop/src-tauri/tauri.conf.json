@@ -6,8 +6,8 @@
   "build": {
     "frontendDist": "../out/renderer",
     "devUrl": "http://localhost:5173",
-    "beforeDevCommand": "./node_modules/.bin/vite --port 5173 --strictPort",
-    "beforeBuildCommand": "./node_modules/.bin/vite build"
+    "beforeDevCommand": "npx vite --port 5173 --strictPort",
+    "beforeBuildCommand": "npx vite build"
   },
   "app": {
     "macOSPrivateApi": true,
