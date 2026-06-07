@@ -1,0 +1,76 @@
+html,
+body,
+#app {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: transparent;
+  border-radius: 18px;
+  user-select: none;
+}
+
+body {
+  -webkit-app-region: no-drag;
+}
+
+.pet-stage {
+  position: fixed;
+  inset: 0;
+  cursor: grab;
+}
+
+.pet-stage.dragging {
+  cursor: grabbing;
+}
+
+.pet-sprite {
+  position: absolute;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  will-change: transform, background-position;
+  backface-visibility: hidden;
+  contain: layout paint style;
+}
+
+.bubble {
+  position: fixed;
+  left: 50%;
+  top: 8px;
+  transform: translateX(-50%);
+  max-width: 220px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: rgb(255 255 255 / 88%);
+  color: #2f2a27;
+  font: 13px/1.35 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  box-shadow: 0 8px 24px rgb(0 0 0 / 14%);
+  opacity: 0;
+  transition: opacity 180ms ease;
+  pointer-events: none;
+}
+
+.bubble.visible {
+  opacity: 1;
+}
+
+/* Mood-based subtle pet stage effects */
+.pet-stage[data-mood="excited"] {
+  animation: pet-bounce 0.3s ease-in-out 3;
+}
+
+.pet-stage[data-mood="grumpy"] {
+  animation: pet-shake 0.15s ease-in-out 4;
+}
+
+@keyframes pet-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes pet-shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
+}

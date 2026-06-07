@@ -1,0 +1,25 @@
+{
+  "name": "ragdoll-desktop-pet",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Local-first desktop ragdoll cat companion.",
+  "packageManager": "pnpm@11.5.2",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "pnpm --filter @ragdoll-desktop/desktop run dev",
+    "build": "pnpm --filter @ragdoll-desktop/desktop run build",
+    "dist:mac": "pnpm --filter @ragdoll-desktop/desktop run dist:mac",
+    "dist:mac:unsigned": "pnpm --filter @ragdoll-desktop/desktop run dist:mac:unsigned",
+    "typecheck": "pnpm --filter @ragdoll-desktop/desktop run typecheck",
+    "lint:boundaries": "node scripts/check-boundaries.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "@ragdoll-desktop/pet-runtime",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@ragdoll-desktop/shared": "workspace:*"
+  }
+}

@@ -1,0 +1,26 @@
+node_modules/
+out/
+dist/
+*.log
+.DS_Store
+release/
+apps/desktop/build/
+# Rust / Tauri
+apps/desktop/src-tauri/target/
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+# macOS
+*.dmg
+# env
+.env
+.env.local
+# Reference photos / large assets
+Mona照片_副本/
+# Generated sprite runs
+runs/
+# TypeScript build info
+tsconfig.tsbuildinfo
+*.tsbuildinfo

@@ -1,0 +1,196 @@
+{
+  "id": "mona_ragdoll",
+  "name": "Mona Ragdoll",
+  "version": "0.1.0",
+  "scale": 1.15,
+  "anchor": {
+    "x": 0.5,
+    "y": 0.92
+  },
+  "spritesheets": [
+    {
+      "id": "main",
+      "image": "mona-spritesheet.png",
+      "frameWidth": 192,
+      "frameHeight": 208,
+      "columns": 8
+    }
+  ],
+  "animations": {
+    "idle_sit": {
+      "sheet": "main",
+      "frames": [0],
+      "fps": 1,
+      "loop": true
+    },
+    "blink_slow": {
+      "sheet": "main",
+      "frames": [0, 3, 3, 3, 0],
+      "fps": 2,
+      "loop": false
+    },
+    "look_around": {
+      "sheet": "main",
+      "frames": [4, 5, 4],
+      "fps": 8,
+      "loop": false
+    },
+    "sleep": {
+      "sheet": "main",
+      "frames": [43, 44, 45, 44],
+      "fps": 2,
+      "loop": true
+    },
+    "stretch": {
+      "sheet": "main",
+      "frames": [32, 33, 34],
+      "fps": 10,
+      "loop": false
+    },
+    "wave_hello": {
+      "sheet": "main",
+      "frames": [24, 25, 26],
+      "fps": 1.5,
+      "loop": false
+    },
+    "walk_right": {
+      "sheet": "main",
+      "frames": [8, 9, 10, 11, 12, 13, 14, 15],
+      "fps": 12,
+      "loop": true
+    },
+    "walk_right_preview": {
+      "sheet": "main",
+      "frames": [8, 9, 10, 11, 12, 13, 14, 15],
+      "fps": 12,
+      "loop": false
+    },
+    "walk_left": {
+      "sheet": "main",
+      "frames": [16, 17, 18, 19, 20, 21, 22, 23],
+      "fps": 12,
+      "loop": true
+    },
+    "walk_left_preview": {
+      "sheet": "main",
+      "frames": [16, 17, 18, 19, 20, 21, 22, 23],
+      "fps": 12,
+      "loop": false
+    },
+    "failed": {
+      "sheet": "main",
+      "frames": [40, 41, 42, 43, 44, 45, 46],
+      "fps": 8,
+      "loop": false
+    },
+    "waiting": {
+      "sheet": "main",
+      "frames": [48, 49, 50, 51, 52, 53],
+      "fps": 8,
+      "loop": true
+    },
+    "waiting_preview": {
+      "sheet": "main",
+      "frames": [48, 49, 50, 51, 52, 53],
+      "fps": 8,
+      "loop": false
+    },
+    "running_preview": {
+      "sheet": "main",
+      "frames": [56, 57, 58, 59, 60, 61],
+      "fps": 8,
+      "loop": false
+    },
+    "running": {
+      "sheet": "main",
+      "frames": [56, 57, 58, 59, 60, 61],
+      "fps": 8,
+      "loop": true
+    },
+    "review_preview": {
+      "sheet": "main",
+      "frames": [64, 65, 66, 67, 68, 69],
+      "fps": 8,
+      "loop": false
+    },
+    "review": {
+      "sheet": "main",
+      "frames": [64, 65, 66, 67, 68, 69],
+      "fps": 8,
+      "loop": true
+    }
+  },
+  "behaviors": {
+    "default": "idle_sit",
+    "onClick": ["wave_hello", "blink_slow"],
+    "idlePool": [
+      "idle_sit",
+      "blink_slow",
+      "look_around",
+      "stretch",
+      "wave_hello",
+      "walk_right",
+      "walk_left",
+      "failed",
+      "waiting",
+      "running",
+      "review"
+    ],
+    "restNudge": ["stretch", "wave_hello"],
+    "restNudgeAfterMs": 7200000,
+    "idleTickRangeMs": [5000, 15000],
+    "restNudgeMessages": [
+      "伸个懒腰吧，坐了很久了。",
+      "起来走一走，喝杯水？",
+      "看看窗外，休息一下眼睛吧。",
+      "饿肚子了，去吃点东西吧～",
+      "已经很晚了，该休息了哦。"
+    ],
+    "rapidClickPool": [
+      "stretch",
+      "wave_hello",
+      "look_around",
+      "walk_right_preview",
+      "walk_left_preview",
+      "failed",
+      "waiting_preview",
+      "running_preview",
+      "review_preview"
+    ],
+    "rapidClickMessages": [
+      "喵喵喵！",
+      "喵？",
+      "喵～ 别戳啦！",
+      "喵嗷！"
+    ],
+    "clickMessages": [
+      "喵～",
+      "我听见啦",
+      "摸摸头",
+      "嗯？",
+      "我在呢",
+      "呼噜呼噜…"
+    ],
+    "clickBubbleChance": 0.4,
+    "warmUpDurationMs": 0,
+    "warmUpTickRangeMs": [60000, 120000],
+    "warmUpIdleEveryN": 8,
+    "idleEveryN": 1,
+    "dragEndMessages": [
+      "这里也不错～",
+      "换个地方待着！",
+      "嗯，视野不错",
+      "好，就在这吧"
+    ],
+    "dragEndAnimations": ["look_around"],
+    "morningGreetingMessage": "早上好呀，今天也要加油哦～",
+    "mealMessages": {
+      "8": "该吃早餐啦，新的一天从美食开始～",
+      "12": "中午啦，去吃点东西吧！",
+      "18": "晚饭时间到，别忘了吃晚饭哦。",
+      "23": "夜深了，饿不饿？吃点宵夜吧～"
+    },
+    "lateNightAfterHour": 23,
+    "lateNightMessage": "已经很晚了，该休息了哦。晚安～"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "name": "@ragdoll-desktop/desktop",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "dev:renderer": "vite",
+    "build": "vite build",
+    "build:renderer": "vite build",
+    "typecheck": "tsc --noEmit",
+    "tauri": "tauri",
+    "tauri:dev": "tauri dev",
+    "tauri:build": "tauri build"
+  },
+  "dependencies": {
+    "@ragdoll-desktop/pet-assets": "workspace:*",
+    "@ragdoll-desktop/pet-runtime": "workspace:*",
+    "@ragdoll-desktop/shared": "workspace:*",
+    "@tauri-apps/api": "^2",
+    "pixi.js": "^7.4.2"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2",
+    "typescript": "^5.8.3",
+    "vite": "^5"
+  }
+}

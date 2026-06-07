@@ -1,0 +1,75 @@
+name: Build Desktop Pet
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch: # allow manual trigger from GitHub UI
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            target: x86_64-pc-windows-msvc
+            artifact_name: Ragdoll-Pet-Windows
+            artifact_ext: .msi
+          - os: macos-latest
+            target: aarch64-apple-darwin
+            artifact_name: Ragdoll-Pet-macOS
+            artifact_ext: .dmg
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: pnpm
+
+      - name: Install frontend dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+
+      - name: Install Tauri system deps (macOS)
+        if: runner.os == 'macOS'
+        run: |
+          echo "macOS runner — system deps pre-installed"
+
+      - name: Install Tauri system deps (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          echo "Windows runner — WebView2 & MSVC pre-installed"
+
+      - name: Build Tauri app
+        run: pnpm --dir apps/desktop tauri build --target ${{ matrix.target }} --bundles ${{ matrix.artifact_ext == '.msi' && 'msi' || 'dmg' }}
+
+      - name: Upload artifact (macOS DMG)
+        if: runner.os == 'macOS'
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact_name }}
+          path: apps/desktop/src-tauri/target/${{ matrix.target }}/release/bundle/dmg/*.dmg
+          if-no-files-found: error
+
+      - name: Upload artifact (Windows MSI)
+        if: runner.os == 'Windows'
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact_name }}
+          path: apps/desktop/src-tauri/target/${{ matrix.target }}/release/bundle/msi/*.msi
+          if-no-files-found: error
